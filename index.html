@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beranda - Ponpes Daar El-Hikam</title>
+    <style>
+        :root {
+            --primary-color: #1b5e20;
+            --primary-light: #e8f5e9;
+            --primary-hover: #123c15;
+            --gold-accent: #d4af37;
+            --gold-hover: #aa8c2c;
+            --bg-color: #f4f6f4;
+            --card-bg: #ffffff;
+            --text-main: #212529;
+            --text-muted: #495057;
+            --border-color: #e9ecef;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background-color: var(--bg-color); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: var(--text-main); line-height: 1.6; padding-bottom: 40px; }
+        .hero { background: linear-gradient(135deg, var(--primary-color) 0%, #0d3c11 100%); color: white; padding: 60px 20px; text-align: center; border-bottom: 5px solid var(--gold-accent); }
+        .hero img { max-width: 150px; height: auto; margin-bottom: 20px; }
+        .hero h1 { font-size: 28px; font-weight: 700; margin-bottom: 10px; }
+        .hero p { font-size: 15px; color: #c8e6c9; max-width: 600px; margin: 0 auto; }
+        .container { width: 100%; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .welcome-card { background: var(--card-bg); padding: 30px 25px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); text-align: center; margin-top: -40px; margin-bottom: 30px; position: relative; z-index: 10; border: 1px solid var(--border-color); }
+        .welcome-card h2 { color: var(--primary-color); font-size: 22px; margin-bottom: 12px; }
+        .welcome-card p { color: var(--text-muted); font-size: 14.5px; margin-bottom: 25px; }
+        .btn-group { display: block; }
+        .btn { display: block; width: 100%; padding: 14px 20px; margin-bottom: 12px; font-size: 15px; font-weight: 600; text-decoration: none; border-radius: 10px; transition: all 0.3s ease; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .btn-wali { background-color: var(--primary-color); color: white; }
+        .btn-wali:hover { background-color: var(--primary-hover); transform: translateY(-2px); }
+        .btn-tamu { background-color: var(--gold-accent); color: #1a1a1a; }
+        .btn-tamu:hover { background-color: var(--gold-hover); transform: translateY(-2px); }
+        .info-section { background: var(--card-bg); padding: 25px; border-radius: 16px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02); border-left: 5px solid var(--primary-color); }
+        .info-section h3 { color: var(--primary-color); font-size: 18px; margin-bottom: 15px; text-transform: uppercase; }
+        .info-section h4 { color: var(--text-main); font-size: 15px; margin: 15px 0 5px 0; font-weight: 600; }
+        .info-section p, .info-section li { font-size: 14.5px; color: var(--text-muted); }
+        .info-section ol { padding-left: 20px; }
+        .info-section li { margin-bottom: 8px; }
+        .grid-list { list-style: none; margin-top: 15px; }
+        .grid-item { background: var(--primary-light); padding: 12px 15px; border-radius: 8px; margin-bottom: 12px; border-left: 3px solid var(--primary-color); color: var(--primary-color) !important; font-weight: 600; }
+        .grid-item span { display: block; font-weight: 400; font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+        .footer { text-align: center; font-size: 13px; color: var(--text-muted); margin-top: 30px; }
+        @media (min-width: 600px) {
+            .hero { padding: 80px 20px; }
+            .hero h1 { font-size: 36px; }
+            .btn-group { display: flex; gap: 15px; }
+            .btn { margin-bottom: 0; flex: 1; }
+            .welcome-card h2 { font-size: 26px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <img src="logo_transparent.png" alt="Logo Ponpes Daar El-Hikam" onerror="this.style.display='none'">
+        <h1>Ponpes Daar El-Hikam</h1>
+        <p>Membentuk Generasi Qur'ani, Berakhlak Karimah, Unggul, dan Berwawasan Modern</p>
+    </div>
+    <div class="container">
+        <div class="welcome-card">
+            <h2>Selamat Datang</h2>
+            <p>Selamat datang di Layanan Informasi Terpadu Pondok Pesantren Daar El-Hikam. Silakan klik tombol di bawah ini untuk menuju ke halaman pencatatan data operasional pondok.</p>
+            <div class="btn-group">
+                <a href="datawali.html" class="btn btn-wali">Data Wali Santri (Mudif)</a>
+                <a href="datatamu.html" class="btn btn-tamu">Data Tamu Pondok</a>
+            </div>
+        </div>
+        <div class="footer">
+            <p>&copy; 2026 Ponpes Daar El-Hikam. All Rights Reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

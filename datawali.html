@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Data Mudif - Ponpes Daar El-Hikam</title>
+    <style>
+        :root { --primary-color: #2e7d32; --primary-hover: #1b5e20; --bg-color: #f8f9fa; --card-bg: #ffffff; --text-main: #212529; --border-color: #dee2e6; }
+        body { background-color: var(--bg-color); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: var(--text-main); margin: 0; padding: 30px 15px; display: flex; flex-direction: column; align-items: center; }
+        .container { width: 100%; max-width: 1000px; background: var(--card-bg); padding: 25px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05); }
+        h2 { text-align: center; color: var(--primary-color); margin-top: 0; margin-bottom: 25px; font-size: 22px; }
+        .btn-back { background-color: #6c757d; color: white; padding: 10px 18px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 14px; display: inline-block; margin-bottom: 20px; }
+        .form-box { background-color: #f1f8e9; border: 1px solid #c5e1a5; padding: 20px; border-radius: 10px; margin-bottom: 25px; }
+        .input-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-bottom: 15px; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        .form-group label { font-weight: 600; font-size: 13px; color: var(--primary-color); }
+        input[type="text"] { width: 100%; padding: 10px 12px; border: 1px solid #cccccc; border-radius: 6px; font-size: 14px; box-sizing: border-box; }
+        .form-actions { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #c5e1a5; padding-top: 15px; flex-wrap: wrap; gap: 15px; }
+        .waktu-info { font-size: 13px; color: #424242; font-weight: 600; }
+        .time-badge { background: #e8f5e9; color: var(--primary-color); padding: 5px 10px; border-radius: 6px; }
+        button.btn-simpan { background-color: var(--primary-color); color: white; padding: 12px 25px; border: none; cursor: pointer; border-radius: 8px; font-size: 15px; font-weight: 600; }
+        table { border-collapse: collapse; width: 100%; min-width: 700px; font-size: 14px; }
+        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid var(--border-color); }
+        th { background-color: var(--primary-color); color: white; font-size: 13px; text-transform: uppercase; }
+        .table-responsive { width: 100%; overflow-x: auto; border: 1px solid var(--border-color); border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Tabel Data Mudif Santriwan/Wati</h2>
+        <a href="index.html" class="btn-back">⬅ Kembali ke Beranda</a>
+        
+        <div class="form-box">
+            <div class="input-grid">
+                <div class="form-group"><label>Nama Wali Santri</label><input type="text" id="inputWali" placeholder="Masukkan nama wali..."></div>
+                <div class="form-group"><label>Nama Santriwan/Wati</label><input type="text" id="inputSantri" placeholder="Masukkan nama santri..."></div>
+                <div class="form-group"><label>Nomor Telepon</label><input type="text" id="inputTelp" placeholder="Masukkan nomor..."></div>
+            </div>
+            <div class="form-actions">
+                <div class="waktu-info">Waktu: <span id="liveTanggal" class="time-badge">-</span> | <span id="liveJam" class="time-badge">-</span></div>
+                <button class="btn-simpan" onclick="simpanData()" id="btnSimpan">Simpan Data</button>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table>
+                <thead><tr><th>No</th><th>Nama Wali Santri</th><th>Nama Santriwan/Wati</th><th>Nomor Telepon</th><th>Tanggal</th><th>Jam</th></tr></thead>
+                <tbody id="tabelBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function updateWaktu() {
+            const now = new Date();
+            document.getElementById('liveTanggal').innerText = now.toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            document.getElementById('liveJam').innerText = now.toLocaleTimeString('id-ID', { hour12: false }) + ' WIB';
+        }
+        setInterval(updateWaktu, 1000); updateWaktu();
+
+        function simpanData() {
+            const wali = document.getElementById('inputWali').value.trim();
+            const santri = document.getElementById('inputSantri').value.trim();
+            const telp = document.getElementById('inputTelp').value.trim();
+            const tanggal = document.getElementById('liveTanggal').innerText;
+            const jam = document.getElementById('liveJam').innerText;
+            const btn = document.getElementById('btnSimpan');
+
+            if (!wali || !santri || !telp) return alert("Mohon isi semua kolom terlebih dahulu!");
+
+            // UBAH BAGIAN INI DENGAN ID GRUP DARI FONNTE
+            const nomorTujuan = "120363427963648239@g.us"; 
+            const pesanWA = `*DATA WALI SANTRI BARU*\n\nNama Wali: ${wali}\nNama Santri: ${santri}\nNo. Telp: ${telp}\nWaktu: ${tanggal} - ${jam}`;
+
+            btn.innerText = "Mengirim..."; btn.disabled = true;
+
+            // Mengirim ke API Netlify
+            fetch('/.netlify/functions/kirim-wa', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ target: nomorTujuan, pesan: pesanWA })
+            })
+            .then(res => res.json())
+            .then(data => {
+                btn.innerText = "Simpan Data"; btn.disabled = false;
+                if(data.success) {
+                    alert("Berhasil! Data telah dikirim ke WhatsApp.");
+                    
+                    // Tambahkan ke tabel jika sukses
+                    const tb = document.getElementById('tabelBody');
+                    tb.innerHTML += `<tr><td>${tb.children.length + 1}</td><td>${wali}</td><td>${santri}</td><td>${telp}</td><td>${tanggal}</td><td>${jam}</td></tr>`;
+                    
+                    // Kosongkan form
+                    document.getElementById('inputWali').value = '';
+                    document.getElementById('inputSantri').value = '';
+                    document.getElementById('inputTelp').value = '';
+                } else {
+                    alert("Gagal kirim: " + data.message);
+                }
+            })
+            .catch(err => {
+                btn.innerText = "Simpan Data"; btn.disabled = false;
+                alert("Terjadi kesalahan jaringan.");
+            });
+        }
+    </script>
+</body>
+</html>
